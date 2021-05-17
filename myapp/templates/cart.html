@@ -1,0 +1,109 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    </head>
+
+    <body>
+       
+        
+        <!-- Breadcrumb Start -->
+        <div class="breadcrumb-wrap">
+            <div class="container-fluid">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Products</a></li>
+                    <li class="breadcrumb-item active">Cart</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+        
+        <!-- Cart Start -->
+        <div class="cart-page">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="cart-page-inner">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Total</th>
+                                            <th>Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="align-middle">
+                                        {% for i in carts %}
+                                        <tr>
+                                            <td>
+                                                <div class="img">
+                                                    <a href="#"><img src="{{i.product.product_image.url}}" alt="Image"></a>
+                                                    <p>{{i.product.product_name}}</p>
+                                                </div>
+                                            </td>
+                                            <td>{{i.price}}</td>
+                                            <td>
+                                                <div class="qty">
+                                                    <form name="change_qty" method="post" action="{% url 'change_qty' pk=i.pk %}">
+                                                        {% csrf_token %}
+                                                        
+                                                        <input type="number" value="{{i.qty}}" name="qty" min="1" max="10" onchange="this.form.submit();">
+                                                       
+                                                    </form>
+                                                </div>
+                                            </td>
+                                            <td>{{i.total_price}}</td>
+                                            <td><a href="{% url 'remove_from_cart' pk=i.product.pk %}"><button><i class="fa fa-trash"></i></button></a></td>
+                                        </tr>
+                                        {% endfor %}
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="cart-page-inner">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="coupon">
+                                        <input type="text" placeholder="Coupon Code">
+                                        <button>Apply Code</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="cart-summary">
+                                        <div class="cart-content">
+                                            <h1>Cart Summary</h1>
+                                            <p>Sub Total<span>{{net_price}}</span></p>
+                                            <p>Shipping Cost<span>{{shipping_cost}}</span></p>
+                                            <h2>Grand Total<span>{{grand_total}}</span></h2>
+                                        </div>
+
+                                        <div class="cart-btn">
+                                        <form name="checkout" method="post" action="{%  url 'pay' %}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="amount" value="{{grand_total}}">
+                                            <button type="submit">Checkout</button>
+                                        </form>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Cart End -->
+        
+    </body>
+</html>
+{% endblock %}

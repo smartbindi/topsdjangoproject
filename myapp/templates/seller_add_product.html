@@ -1,0 +1,104 @@
+{% extends 'seller_header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+       
+    </head>
+
+    <body>
+              
+        <!-- Breadcrumb Start -->
+        <div class="breadcrumb-wrap">
+            <div class="container-fluid">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Products</a></li>
+                    <li class="breadcrumb-item active">Add Product</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+        
+        <!-- Login Start -->
+        <div class="login">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6">    
+                        <div class="register-form">
+                            <form name="seller_add_product" method="post" action="{% url 'seller_add_product' %}" enctype="multipart/form-data">
+                                {% csrf_token %}
+                            <div class="row">
+                            
+                                
+                                 <div class="col-md-6">
+                                    <label>Product Category</label>
+                                   <select name="product_category">
+                                        <option>---Select Product category---</option>
+                                        <option value="kid">Kids</option>
+                                        <option value="men">Men</option>
+                                        <option value="women">Women</option>
+
+                                   </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Product Name</label>
+                                    <input class="form-control" type="text" placeholder="Product Name" name="product_name">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Product Price</label>
+                                    <input class="form-control" type="text" placeholder="Product Price" name="product_price">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Product Description</label>
+                                    <input class="form-control" type="text" placeholder="Product Description" name="product_desc">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Product Color</label>
+                                   <select name="product_color">
+                                        <option>---Select Product Color---</option>
+                                        <option value="blue">Blue</option>
+                                        <option value="red">Red</option>
+                                        <option value="green">Green</option>
+                                        <option value="black">Black</option>
+                                        <option value="white">White</option>
+                                        <option value="yellow">Yellow</option>
+
+                                   </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Product Size</label>
+                                   <select name="product_size">
+                                        <option>---Select Product Size---</option>
+                                        <option value="s">S</option>
+                                        <option value="m">M</option>
+                                        <option value="l">L</option>
+                                        
+
+                                   </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Product Image</label>
+                                    <input class="form-control" type="file" placeholder="Product Image" name="product_image">
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn">Add Product</button>
+                                </div>
+                                <div class="col-md-6">
+                                    {{msg}}
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+        <!-- Login End -->
+        
+    </body>
+</html>
+{% endblock %}

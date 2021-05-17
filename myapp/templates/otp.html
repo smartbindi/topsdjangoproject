@@ -1,0 +1,58 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+       
+    </head>
+
+    <body>
+              
+        <!-- Breadcrumb Start -->
+        <div class="breadcrumb-wrap">
+            <div class="container-fluid">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Products</a></li>
+                    <li class="breadcrumb-item active">Enter OTP</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+        
+        <!-- Login Start -->
+        <div class="login">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6">    
+                        <div class="register-form">
+                            <form name="enter_otp" method="post" action="{% url 'verify_otp' %}">
+                                {% csrf_token %}
+                            <div class="row">
+                                <input type="hidden" name="otp1" value="{{otp1}}">
+                                <input type="hidden" name="email" value="{{email}}">
+                                <div class="col-md-12">
+                                    <label>Enter OTP</label>
+                                    <input class="form-control" type="password" placeholder="OTP" name="otp2">
+                                </div>
+                               
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn">Verify OTP</button>
+                                </div>
+                                <div class="col-md-6">
+                                    {{msg}}
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- Login End -->
+        
+    </body>
+</html>
+{% endblock %}
